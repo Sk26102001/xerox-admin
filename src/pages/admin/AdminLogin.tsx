@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useApp } from '@/context/AppContext';
 import { useToast } from '@/hooks/use-toast';
+import { User } from 'lucide-react';
 // import axiosInstance from "@/api/axios";
 
 const AdminLogin = () => {
@@ -25,10 +26,12 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-navy-dark px-4">
+    <div className="min-h-screen flex items-center justify-center bg-white px-4">
       <div className="bg-navy rounded-xl p-8 shadow-2xl w-full max-w-md">
         <div className="text-center mb-6">
-          <div className="inline-block bg-primary text-primary-foreground font-bold text-sm px-3 py-1.5 rounded mb-3">ADMIN</div>
+          <div className="inline-block bg-primary text-primary-foreground font-bold text-sm px-3 py-3 rounded-full mb-3">
+             <User className="h-10 w-10 "/>
+          </div>
           <h1 className="text-2xl font-bold text-secondary-foreground">Admin Panel Login</h1>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">

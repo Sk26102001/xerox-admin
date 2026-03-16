@@ -1,11 +1,13 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Download } from 'lucide-react';
+import { ArrowLeft, Download, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { useApp } from '@/context/AppContext';
 import { useToast } from '@/hooks/use-toast';
 import { OrderStatus, PaymentStatus } from '@/types';
+import { generateInvoicePDF } from '@/utils/invoiceGenerator';
+import { GST_RATE } from '@/data/pricingData';
 
 const AdminOrderDetail = () => {
   const { id } = useParams();
@@ -16,12 +18,24 @@ const AdminOrderDetail = () => {
   const order = orders.find(o => o.id === id);
   if (!order) return <div className="text-center py-12 text-muted-foreground">Order not found</div>;
 
+  const gstPercent = GST_RATE * 100;
+
+  const handleDownloadInvoice = () => {
+    generateInvoicePDF(order);
+    toast({ title: 'Invoice Downloaded', description: `Invoice for ${order.id} has been downloaded` });
+  };
+
   return (
     <div>
       <Button variant="ghost" onClick={() => navigate('/admin/orders')} className="mb-4"><ArrowLeft className="h-4 w-4 mr-2" /> Back to Orders</Button>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-foreground">Order {order.id}</h1>
-        <Button variant="outline" onClick={() => toast({ title: 'Download started (mock)' })}><Download className="h-4 w-4 mr-2" /> Download File</Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={handleDownloadInvoice} className="gap-2">
+            <FileText className="h-4 w-4" /> Download Invoice
+          </Button>
+          <Button variant="outline" onClick={() => toast({ title: 'Download started (mock)' })}><Download className="h-4 w-4 mr-2" /> Download File</Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -59,7 +73,7 @@ const AdminOrderDetail = () => {
             <div className="flex justify-between"><span className="text-secondary-foreground/70">Printing</span><span>₹{order.printingCost.toFixed(2)}</span></div>
             <div className="flex justify-between"><span className="text-secondary-foreground/70">Binding</span><span>₹{order.bindingCost.toFixed(2)}</span></div>
             {order.discount > 0 && <div className="flex justify-between text-green-400"><span>Discount</span><span>-₹{order.discount.toFixed(2)}</span></div>}
-            <div className="flex justify-between"><span className="text-secondary-foreground/70">GST (18%)</span><span>₹{order.gst.toFixed(2)}</span></div>
+            <div className="flex justify-between"><span className="text-secondary-foreground/70">GST ({gstPercent}%)</span><span>₹{order.gst.toFixed(2)}</span></div>
             <div className="border-t border-navy-light pt-2 mt-2 flex justify-between font-bold text-lg"><span>Total</span><span className="text-primary">₹{order.totalCost.toFixed(2)}</span></div>
           </div>
         </div>

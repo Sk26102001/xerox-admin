@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, ShoppingCart, Users, DollarSign, Tag, Percent, BarChart3, Settings, LogOut, Bell, Menu,Shield } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart, Users, DollarSign, Tag, Percent, BarChart3,MessageSquareQuote, Settings, LogOut, Bell, Menu,Shield } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
@@ -12,6 +12,8 @@ const sidebarItems = [
   { label: 'Promocodes', path: '/promocodes', icon: Tag },
   { label: 'Offers', path: '/offers', icon: Percent },
   { label: 'Reports', path: '/reports', icon: BarChart3 },
+    { label: 'Testimonials', path: '/testimonials', icon: MessageSquareQuote
+     },
   { label: 'Settings', path: '/settings', icon: Settings },
 ];
 

@@ -22,6 +22,7 @@ import AdminPricing from "./pages/admin/AdminPricing";
 import AdminPromocodes from "./pages/admin/AdminPromocodes";
 import AdminOffers from "./pages/admin/AdminOffers";
 import AdminReports from "./pages/admin/AdminReports";
+import AdminTestimonials from "./pages/admin/AdminTestimonials";
 import AdminSettings from "./pages/admin/AdminSettings";
 import NotFound from "./pages/NotFound";
 
@@ -57,6 +58,7 @@ const App = () => (
               <Route path="promocodes" element={<AdminPromocodes />} />
               <Route path="offers" element={<AdminOffers />} />
               <Route path="reports" element={<AdminReports />} />
+               <Route path="testimonials" element={<AdminTestimonials />} />
               <Route path="settings" element={<AdminSettings />} />
             </Route>
 

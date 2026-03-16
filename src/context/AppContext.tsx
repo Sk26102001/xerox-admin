@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { User, Order, Pricing, Promocode, Offer, AuthState } from '@/types';
 import { mockUsers, mockOrders, mockPricing, mockPromocodes, mockOffers } from '@/data/mockData';
+import { PricingConfig, defaultPricingConfig } from '@/data/pricingData';
 
 interface AppContextType {
   auth: AuthState;
@@ -13,6 +14,8 @@ interface AppContextType {
   setOrders: React.Dispatch<React.SetStateAction<Order[]>>;
   pricing: Pricing;
   setPricing: React.Dispatch<React.SetStateAction<Pricing>>;
+  pricingConfig: PricingConfig;
+  setPricingConfig: React.Dispatch<React.SetStateAction<PricingConfig>>;
   promocodes: Promocode[];
   setPromocodes: React.Dispatch<React.SetStateAction<Promocode[]>>;
   offers: Offer[];
@@ -29,6 +32,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [users, setUsers] = useState<User[]>(mockUsers);
   const [orders, setOrders] = useState<Order[]>(mockOrders);
   const [pricing, setPricing] = useState<Pricing>(mockPricing);
+  const [pricingConfig, setPricingConfig] = useState<PricingConfig>(defaultPricingConfig);
   const [promocodes, setPromocodes] = useState<Promocode[]>(mockPromocodes);
   const [offers, setOffers] = useState<Offer[]>(mockOffers);
 
@@ -78,7 +82,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AppContext.Provider value={{ auth, login, adminLogin, logout, register, users, orders, setOrders, pricing, setPricing, promocodes, setPromocodes, offers, setOffers, addOrder, updateOrderStatus, updatePaymentStatus }}>
+    <AppContext.Provider value={{ auth, login, adminLogin, logout, register, users, orders, setOrders, pricing, setPricing, pricingConfig, setPricingConfig, promocodes, setPromocodes, offers, setOffers, addOrder, updateOrderStatus, updatePaymentStatus }}>
       {children}
     </AppContext.Provider>
   );
